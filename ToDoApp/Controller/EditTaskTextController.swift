@@ -10,24 +10,29 @@ import UIKit
 
 class EditTaskTextController: UIViewController {
     
-    var nameText: String!
-    var noteText: String!
+    var text: String!
+    
+    var completion: ((String) -> ())?
     
     @IBOutlet weak var textView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let text = nameText {
+        if let text = text {
             textView.text = text
-        } else if let text = noteText {
-            textView.text = text
-        }
-       
-        
     }
     
-   
+    }
+    
+    @IBAction func donePressed() {
+        
+        if let text = textView.text {
+            completion?(text)
+        }
+        navigationController?.popViewController(animated: true)
+        
+    }
 
     /*
     // MARK: - Navigation

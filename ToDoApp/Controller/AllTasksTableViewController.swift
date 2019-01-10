@@ -94,8 +94,6 @@ class AllTasksTableViewController: UITableViewController {
     
     func addPlusButton () {
         let plusButton = UIButton()
-
-
         
         plusButton.setImage(UIImage(named: "plusButton"), for: .normal)
         tableView.addSubview(plusButton)
@@ -218,24 +216,6 @@ class AllTasksTableViewController: UITableViewController {
         
     }
     
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    
-    
-    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    //        if editingStyle == .delete {
-    //            RealmData.current.delete(RealmData.current.resultsCompleted()[indexPath.row])
-    //
-    //        }
-    //    }
-    
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard filterMode != FilterMode.complete else { return nil}
         let completeAction = UIContextualAction(style: .normal, title: "Complete") { (action, sourceView, completionHandler) in
@@ -252,27 +232,9 @@ class AllTasksTableViewController: UITableViewController {
             RealmData.current.delete(self.results[indexPath.row])
             completionHandler(true)
         }
-        //        deleteAction.image = UIImage(named: "DeleteIcon")
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
     
      // MARK: - Navigation
      

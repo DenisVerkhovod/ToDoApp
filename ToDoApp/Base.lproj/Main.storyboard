@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KpT-7A-GfR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KpT-7A-GfR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -621,7 +621,11 @@
                                 <segue destination="qe8-fk-WAX" kind="unwind" unwindAction="unwindSegueWithSegue:" id="FDF-w2-Q5y"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="OdO-Hv-1zk"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="OdO-Hv-1zk">
+                            <connections>
+                                <action selector="donePressed" destination="7Ip-4M-0Q1" id="2fk-ad-yyF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="textView" destination="NUU-LX-ozd" id="IyI-CX-bwP"/>
@@ -690,6 +694,6 @@
         <image name="camera" width="33" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ahz-e6-ojP"/>
+        <segue reference="mZe-g5-uBq"/>
     </inferredMetricsTieBreakers>
 </document>

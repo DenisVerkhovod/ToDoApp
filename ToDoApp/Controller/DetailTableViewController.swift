@@ -135,11 +135,17 @@ class DetailTableViewController: UITableViewController {
                 }
             case "nameTextSegue":
                 if let destinationVC = segue.destination as? EditTaskTextController {
-                    destinationVC.nameText = task.name
+                    destinationVC.text = task.name
+                    destinationVC.completion = { [unowned self] text in
+                        RealmData.current.update(self.task, with: ["name": text])
+                    }
                 }
             case "noteTextSegue":
                 if let destinationVC = segue.destination as? EditTaskTextController {
-                    destinationVC.noteText = task.note
+                    destinationVC.text = task.note
+                    destinationVC.completion = { [unowned self] text in
+                        RealmData.current.update(self.task, with: ["note": text])
+                    }
                 }
             default:
                 break

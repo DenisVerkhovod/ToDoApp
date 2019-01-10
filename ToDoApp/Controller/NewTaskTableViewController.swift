@@ -15,8 +15,19 @@ class NewTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
     
     var task : Task!
     
-    @IBOutlet weak var taskName: UITextField!
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var taskName: UITextField! {
+        didSet {
+            taskName.delegate = self
+        }
+    }
+    @IBOutlet weak var textView: UITextView! {
+        didSet {
+            textView.delegate = self
+            textView.layer.cornerRadius = 5
+            textView.text = "Add Note..."
+            textView.textColor = UIColor.lightGray
+        }
+    }
     @IBOutlet weak var addPhotoButton: UIButton!
     @IBOutlet weak var prioritySegment: UISegmentedControl!
     @IBOutlet weak var dueDateSwitch: UISwitch!
@@ -29,14 +40,6 @@ class NewTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
         super.viewDidLoad()
      datePicker.setValue(UIColor.white, forKey: "textColor")
         task = Task()
-        
-        taskName.delegate = self
-        
-        textView.delegate = self
-        
-        textView.layer.cornerRadius = 5
-        textView.text = "Add Note..."
-        textView.textColor = UIColor.lightGray
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         self.view.addGestureRecognizer(tap)
