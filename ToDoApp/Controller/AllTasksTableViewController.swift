@@ -21,6 +21,14 @@ class AllTasksTableViewController: UITableViewController {
     
     var filterMode : FilterMode!
     var notificationToken: NotificationToken?
+    var addNewTaskButton: UIButton!
+    var newTaskView: UIView!
+    var newTaskTextField: UITextField!
+    
+    var newTaskViewHeight: CGFloat = 40
+    var newTaskViewOffset: CGFloat {
+        return newTaskViewHeight + 10
+    }
 
     var results : Results<Task> {
         get {
@@ -45,7 +53,9 @@ class AllTasksTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        addNewTaskView()
         addPlusButton()
+        
         
         filterMode = FilterMode.descending
         
@@ -94,18 +104,18 @@ class AllTasksTableViewController: UITableViewController {
     //MARK: -  New Task Button
     
     func addPlusButton () {
-        let plusButton = UIButton()
+        addNewTaskButton = UIButton()
         
-        plusButton.setImage(UIImage(named: "plusButton"), for: .normal)
-        tableView.addSubview(plusButton)
-        plusButton.addTarget(self, action: #selector(addButtonPressed(sender:)), for: .touchUpInside)
+        addNewTaskButton.setImage(UIImage(named: "plusButton"), for: .normal)
+        tableView.addSubview(addNewTaskButton)
+        addNewTaskButton.addTarget(self, action: #selector(addButtonPressed(sender:)), for: .touchUpInside)
 
-        plusButton.translatesAutoresizingMaskIntoConstraints = false
-        plusButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        addNewTaskButton.translatesAutoresizingMaskIntoConstraints = false
+        addNewTaskButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         NSLayoutConstraint.activate([
-            plusButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            plusButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            addNewTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            addNewTaskButton.bottomAnchor.constraint(equalTo: newTaskView.topAnchor, constant: -20)
             ])
     }
     
@@ -114,6 +124,42 @@ class AllTasksTableViewController: UITableViewController {
         performSegue(withIdentifier: "NewTaskTableViewController", sender: self)
 
     }
+    
+    func addNewTaskView() {
+        
+        newTaskView = UIView()
+        newTaskView.backgroundColor = UIColor.white
+        newTaskView.layer.cornerRadius = 5.0
+        newTaskView.clipsToBounds = true
+        tableView.addSubview(newTaskView)
+        
+        newTaskView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newTaskView.heightAnchor.constraint(equalToConstant: newTaskViewHeight),
+            newTaskView.widthAnchor.constraint(equalToConstant: self.tableView.bounds.width - 30),
+            newTaskView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            newTaskView.topAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -newTaskViewOffset)
+            ])
+       
+        newTaskTextField = UITextField()
+        newTaskTextField.backgroundColor = .green
+        newTaskView.addSubview(newTaskTextField)
+        
+        newTaskTextField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newTaskTextField.bottomAnchor.constraint(equalTo: newTaskView.bottomAnchor, constant: -5),
+            newTaskTextField.topAnchor.constraint(equalTo: newTaskView.topAnchor, constant: 5),
+            newTaskTextField.leadingAnchor.constraint(equalTo: newTaskView.leadingAnchor, constant: 5),
+            newTaskTextField.trailingAnchor.constraint(equalTo: newTaskView.trailingAnchor, constant: -5)
+            ])
+    }
+    
+    func newTaskAnimator() {
+        
+        
+        
+    }
+    
     
     // MARK: - Alert controller to navigation's bar title
     
