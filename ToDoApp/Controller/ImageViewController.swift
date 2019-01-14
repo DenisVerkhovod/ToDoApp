@@ -14,6 +14,9 @@ class ImageViewController: UIViewController {
    
     @IBOutlet weak var imageView: UIImageView! {
         didSet{
+            imageView.image = image ?? UIImage(named: "addPhotoButton")
+            imageView.contentMode = (image == nil ? UIView.ContentMode.center : .scaleAspectFit)
+            
             let leftEdgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(leftEdgeSwipe(sender:)))
             leftEdgeSwipe.edges = [.left]
             imageView.addGestureRecognizer(leftEdgeSwipe)
@@ -23,10 +26,6 @@ class ImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    
-        imageView.image = image
-        // Do any additional setup after loading the view.
     }
     
 

@@ -20,7 +20,7 @@ enum FilterMode {
 class AllTasksTableViewController: UITableViewController {
     
     var filterMode : FilterMode!
-    var notificationToken: NotificationToken? = nil
+    var notificationToken: NotificationToken?
 
     var results : Results<Task> {
         get {
@@ -56,6 +56,7 @@ class AllTasksTableViewController: UITableViewController {
     
     deinit {
         notificationToken?.invalidate()
+        print("INVALIDATE TOKEN")
     }
     
     

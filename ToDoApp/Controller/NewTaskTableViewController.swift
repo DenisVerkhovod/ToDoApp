@@ -38,16 +38,20 @@ class NewTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     datePicker.setValue(UIColor.white, forKey: "textColor")
+        
+        datePicker.setValue(UIColor.white, forKey: "textColor")
+        
         task = Task()
+        
+        taskName.becomeFirstResponder()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         self.view.addGestureRecognizer(tap)
         
-//        taskName.rightView = overlayButton()
-//        taskName.rightViewMode = UITextFieldViewMode.always
+        //        taskName.rightView = overlayButton()
+        //        taskName.rightViewMode = UITextFieldViewMode.always
         
-        }
+    }
     
 
     @IBAction func doneAction(_ sender: UIBarButtonItem) {
