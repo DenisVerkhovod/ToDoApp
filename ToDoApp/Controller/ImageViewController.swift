@@ -11,12 +11,18 @@ import UIKit
 class ImageViewController: UIViewController {
     
     var image: UIImage!
+    
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.delegate = self
+        }
+    }
+    
+
    
-    @IBOutlet weak var imageView: UIImageView! {
+   @IBOutlet weak var imageView: UIImageView! {
         didSet{
-            imageView.image = image ?? UIImage(named: "addPhotoButton")
-            imageView.contentMode = (image == nil ? UIView.ContentMode.center : .scaleAspectFit)
-            
+            imageView.image = image
             let leftEdgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(leftEdgeSwipe(sender:)))
             leftEdgeSwipe.edges = [.left]
             imageView.addGestureRecognizer(leftEdgeSwipe)
@@ -26,21 +32,22 @@ class ImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
     }
+
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @objc func leftEdgeSwipe(sender: UIScreenEdgePanGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
     
     
+}
+
+extension ImageViewController: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
 }

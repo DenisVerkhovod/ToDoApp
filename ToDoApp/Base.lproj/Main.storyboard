@@ -644,39 +644,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addPhotoButton" translatesAutoresizingMaskIntoConstraints="NO" id="d0z-Gj-TWf">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                            </imageView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBq-Ni-Khz">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdB-Q9-7up">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="Qis-dc-xpc"/>
+                                    <constraint firstAttribute="width" secondItem="tdB-Q9-7up" secondAttribute="height" multiplier="375:44" id="mSn-W4-doX"/>
+                                </constraints>
                                 <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="JvV-KD-NWe"/>
-                                    <barButtonItem systemItem="trash" id="ldk-L6-MgJ">
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ITz-IN-bhc"/>
+                                    <barButtonItem systemItem="trash" id="V0b-NW-PZl">
                                         <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </barButtonItem>
                                 </items>
-                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </toolbar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.29999999999999999" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="5c2-Qz-HtE">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="559" translatesAutoresizingMaskIntoConstraints="NO" id="hY1-a8-XkQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="hY1-a8-XkQ" firstAttribute="leading" secondItem="5c2-Qz-HtE" secondAttribute="leading" id="CMs-KR-E3Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="hY1-a8-XkQ" secondAttribute="trailing" id="TrR-GT-jAz"/>
+                                    <constraint firstAttribute="bottom" secondItem="hY1-a8-XkQ" secondAttribute="bottom" id="VXW-cT-yT7"/>
+                                    <constraint firstItem="hY1-a8-XkQ" firstAttribute="top" secondItem="5c2-Qz-HtE" secondAttribute="top" id="ycN-Fb-usG"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="d0z-Gj-TWf" firstAttribute="leading" secondItem="yMF-af-oXm" secondAttribute="leading" id="5mm-iG-qk7"/>
-                            <constraint firstItem="d0z-Gj-TWf" firstAttribute="top" secondItem="yMF-af-oXm" secondAttribute="top" id="Om0-4k-wuC"/>
-                            <constraint firstItem="yMF-af-oXm" firstAttribute="trailing" secondItem="d0z-Gj-TWf" secondAttribute="trailing" id="qfb-oe-pGu"/>
-                            <constraint firstItem="MBq-Ni-Khz" firstAttribute="bottom" secondItem="yMF-af-oXm" secondAttribute="bottom" id="rgm-ap-ofO"/>
-                            <constraint firstItem="MBq-Ni-Khz" firstAttribute="leading" secondItem="yMF-af-oXm" secondAttribute="leading" id="u7C-2P-2Gv"/>
-                            <constraint firstItem="yMF-af-oXm" firstAttribute="bottom" secondItem="d0z-Gj-TWf" secondAttribute="bottom" id="uj6-2x-9aC"/>
-                            <constraint firstItem="MBq-Ni-Khz" firstAttribute="trailing" secondItem="yMF-af-oXm" secondAttribute="trailing" id="xJW-v4-0AN"/>
+                            <constraint firstItem="tdB-Q9-7up" firstAttribute="top" secondItem="5c2-Qz-HtE" secondAttribute="bottom" id="9WC-wt-n5C"/>
+                            <constraint firstItem="tdB-Q9-7up" firstAttribute="leading" secondItem="yMF-af-oXm" secondAttribute="leading" id="AOh-XN-INQ"/>
+                            <constraint firstItem="tdB-Q9-7up" firstAttribute="bottom" secondItem="yMF-af-oXm" secondAttribute="bottom" id="NIE-V0-JIG"/>
+                            <constraint firstItem="yMF-af-oXm" firstAttribute="trailing" secondItem="5c2-Qz-HtE" secondAttribute="trailing" id="aKX-MY-DtL"/>
+                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="top" secondItem="yMF-af-oXm" secondAttribute="top" id="dnu-iS-Or3"/>
+                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="leading" secondItem="yMF-af-oXm" secondAttribute="leading" id="jKB-mM-4Rb"/>
+                            <constraint firstItem="tdB-Q9-7up" firstAttribute="trailing" secondItem="yMF-af-oXm" secondAttribute="trailing" id="vAx-Z9-dCy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yMF-af-oXm"/>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="d0z-Gj-TWf" id="je9-tf-NJz"/>
+                        <outlet property="imageView" destination="hY1-a8-XkQ" id="CgJ-ah-0Sf"/>
+                        <outlet property="scrollView" destination="5c2-Qz-HtE" id="ahD-kj-zGE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SHP-k2-p73" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2052" y="1023"/>
+            <point key="canvasLocation" x="2052" y="1022.3388305847077"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="t0o-tW-FMY">
@@ -704,7 +720,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="addPhotoButton" width="123" height="128"/>
         <image name="camera" width="33" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
