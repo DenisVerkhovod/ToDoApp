@@ -122,6 +122,9 @@ class DetailTableViewController: UITableViewController {
                 if let destinationVC = segue.destination as? ImageViewController {
                     if let image = task.image {
                         destinationVC.image = UIImage(data: image)
+                    } else {
+                        let imagePicker = ImagePickerService()
+                        imagePicker.presentAlertController(in: self)
                     }
                 }
             case "nameTextSegue":
@@ -145,15 +148,16 @@ class DetailTableViewController: UITableViewController {
             }
         }
     }
+}
+
+extension DetailTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-   
-    //MARK: -  TableView
-   
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if indexPath.row == 1 {
-//            performSegue(withIdentifier: "imageSegue", sender: self)
-//            tableView.deselectRow(at: indexPath, animated: true)
-//        }
-//    }
-//    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+       
+        RealmData.current.update(self.task, with: ["image": image.pngData()!])
+        imageView.image = image
+        dismiss(animated: true, completion: nil)
+    }
 }

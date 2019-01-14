@@ -15,6 +15,7 @@ class NewTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
     
     var task : Task!
     
+    
     @IBOutlet weak var taskName: UITextField! {
         didSet {
             taskName.delegate = self
@@ -104,29 +105,10 @@ class NewTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
     }
     
     @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Add image", message: nil, preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Make photo", style: .default) { (action) in
-            self.chooseImagePickerAction(source: .camera)
-        }
-        
-        let galleryAction = UIAlertAction(title: "Add from gallery", style: .default) { (action) in
-            self.chooseImagePickerAction(source: .photoLibrary)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cameraAction)
-        alertController.addAction(galleryAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
-    }
     
-    func chooseImagePickerAction(source: UIImagePickerController.SourceType) {
-        if UIImagePickerController.isSourceTypeAvailable(source) {
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.allowsEditing = true
-            picker.sourceType = source
-            present(picker, animated: true, completion: nil)
-        }
+        let pickerService = ImagePickerService()
+        pickerService.presentAlertController(in: self)
+        
     }
     
     
