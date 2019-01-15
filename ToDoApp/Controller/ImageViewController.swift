@@ -17,9 +17,7 @@ class ImageViewController: UIViewController {
             scrollView.delegate = self
         }
     }
-    
 
-   
    @IBOutlet weak var imageView: UIImageView! {
         didSet{
             imageView.image = image
@@ -28,21 +26,10 @@ class ImageViewController: UIViewController {
             imageView.addGestureRecognizer(leftEdgeSwipe)
         }
     }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-
-    }
-
-    
 
     @objc func leftEdgeSwipe(sender: UIScreenEdgePanGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
 
 extension ImageViewController: UIScrollViewDelegate {
@@ -50,4 +37,9 @@ extension ImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-}
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        print(scrollView.contentSize)
+    }
+    
+    }

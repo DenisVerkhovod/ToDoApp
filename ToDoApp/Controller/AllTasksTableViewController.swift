@@ -21,13 +21,17 @@ class AllTasksTableViewController: UITableViewController {
     
     var filterMode : FilterMode!
     var notificationToken: NotificationToken?
-    var addNewTaskButton: UIButton!
+    var newTaskButton: UIButton!
     var newTaskView: UIView!
-    var newTaskTextField: UITextField!
+    var newTaskTextField: UITextField! {
+        didSet {
+            newTaskTextField.delegate = self
+        }
+    }
     
     var newTaskViewHeight: CGFloat = 40
     var newTaskViewOffset: CGFloat {
-        return newTaskViewHeight + 10
+        return newTaskViewHeight + 40
     }
 
     var results : Results<Task> {
@@ -52,15 +56,22 @@ class AllTasksTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-        addNewTaskView()
-        addPlusButton()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        addNewTaskButton()
+        addNewTaskView()
         
         filterMode = FilterMode.descending
         
         setObserveRealm()
         setTitleButton()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
     }
     
@@ -103,62 +114,84 @@ class AllTasksTableViewController: UITableViewController {
     
     //MARK: -  New Task Button
     
-    func addPlusButton () {
-        addNewTaskButton = UIButton()
+    func addNewTaskButton () {
+        newTaskButton = UIButton()
         
-        addNewTaskButton.setImage(UIImage(named: "plusButton"), for: .normal)
-        tableView.addSubview(addNewTaskButton)
-        addNewTaskButton.addTarget(self, action: #selector(addButtonPressed(sender:)), for: .touchUpInside)
+        newTaskButton.setImage(UIImage(named: "plusButton"), for: .normal)
+        tableView.addSubview(newTaskButton)
+        newTaskButton.addTarget(self, action: #selector(addButtonPressed(sender:)), for: .touchUpInside)
 
-        addNewTaskButton.translatesAutoresizingMaskIntoConstraints = false
-        addNewTaskButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        newTaskButton.translatesAutoresizingMaskIntoConstraints = false
+        newTaskButton.heightAnchor.constraint(equalToConstant: Constant.newTaskButtonHeight).isActive = true
         
         NSLayoutConstraint.activate([
-            addNewTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            addNewTaskButton.bottomAnchor.constraint(equalTo: newTaskView.topAnchor, constant: -20)
+            newTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            newTaskButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.newTaskButtonOffset)
             ])
     }
     
     @objc func addButtonPressed(sender: UIButton) {
         
-        performSegue(withIdentifier: "NewTaskTableViewController", sender: self)
+//        performSegue(withIdentifier: "NewTaskTableViewController", sender: self)
+//        newTaskAnimator()
+        newTaskButton.alpha = 0
+        newTaskTextField.becomeFirstResponder()
 
     }
     
     func addNewTaskView() {
         
-        newTaskView = UIView()
+        newTaskView = UIView(frame: CGRect(x: 0, y: self.view.frame.maxY + newTaskViewHeight, width: view.bounds.size.width, height: newTaskViewHeight))
         newTaskView.backgroundColor = UIColor.white
-        newTaskView.layer.cornerRadius = 5.0
+        newTaskView.layer.cornerRadius = Constant.cornerRadius
         newTaskView.clipsToBounds = true
-        tableView.addSubview(newTaskView)
+        self.navigationController?.view.addSubview(newTaskView)
         
-        newTaskView.translatesAutoresizingMaskIntoConstraints = false
+//        newTaskView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            newTaskView.heightAnchor.constraint(equalToConstant: newTaskViewHeight),
+//            newTaskView.widthAnchor.constraint(equalToConstant: self.tableView.bounds.width),
+//            newTaskView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+////            newTaskView.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+//            ])
+        
+        let imageView = UIImageView(image: UIImage(named: "plusButton"))
+        let size: CGFloat = newTaskViewHeight - 10
+//        imageView.frame.size = CGSize(width: size, height: size)
+        imageView.contentMode = .scaleToFill
+        
+        newTaskView.addSubview(imageView)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newTaskView.heightAnchor.constraint(equalToConstant: newTaskViewHeight),
-            newTaskView.widthAnchor.constraint(equalToConstant: self.tableView.bounds.width - 30),
-            newTaskView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            newTaskView.topAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -newTaskViewOffset)
+            imageView.widthAnchor.constraint(equalToConstant: size),
+            imageView.topAnchor.constraint(equalTo: newTaskView.topAnchor, constant: Constant.newTaskTextFieldOffset),
+            imageView.leadingAnchor.constraint(equalTo: newTaskView.leadingAnchor, constant: Constant.newTaskTextFieldOffset),
+            imageView.bottomAnchor.constraint(equalTo: newTaskView.bottomAnchor, constant: -Constant.newTaskTextFieldOffset)
             ])
-       
+        
         newTaskTextField = UITextField()
         newTaskTextField.backgroundColor = .green
+        newTaskTextField.placeholder = "Add Task..."
         newTaskView.addSubview(newTaskTextField)
         
         newTaskTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            newTaskTextField.bottomAnchor.constraint(equalTo: newTaskView.bottomAnchor, constant: -5),
-            newTaskTextField.topAnchor.constraint(equalTo: newTaskView.topAnchor, constant: 5),
-            newTaskTextField.leadingAnchor.constraint(equalTo: newTaskView.leadingAnchor, constant: 5),
-            newTaskTextField.trailingAnchor.constraint(equalTo: newTaskView.trailingAnchor, constant: -5)
+            newTaskTextField.bottomAnchor.constraint(equalTo: newTaskView.bottomAnchor, constant: -Constant.newTaskTextFieldOffset),
+            newTaskTextField.topAnchor.constraint(equalTo: newTaskView.topAnchor, constant: Constant.newTaskTextFieldOffset),
+            newTaskTextField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.newTaskTextFieldOffset),
+            newTaskTextField.trailingAnchor.constraint(equalTo: newTaskView.trailingAnchor, constant: -Constant.newTaskTextFieldOffset)
             ])
     }
     
-    func newTaskAnimator() {
-        
-        
-        
-    }
+//    func newTaskAnimator() {
+//
+//
+//        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+//           self.newTaskView.frame.origin.y -= self.newTaskViewOffset
+//        }, completion: nil)
+//
+//    }
     
     
     // MARK: - Alert controller to navigation's bar title
@@ -219,6 +252,20 @@ class AllTasksTableViewController: UITableViewController {
             let attributes: [NSAttributedString.Key : Any] = [.font: font, .foregroundColor: UIColor.gray]
             return NSAttributedString(string: title, attributes: attributes)
      
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardFrame = keyboardSize.cgRectValue
+        newTaskView.frame.origin.y = keyboardFrame.origin.y - newTaskViewHeight
+
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        newTaskView.frame.origin.y = self.view.frame.maxY
+        newTaskButton.alpha = 1
     }
     
     
@@ -298,4 +345,19 @@ class AllTasksTableViewController: UITableViewController {
         }
     }
     
+}
+
+extension AllTasksTableViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text, !text.isEmpty {
+            let task = Task()
+            task.name = text
+            task.id = Task.idFactory()
+            RealmData.current.create(task)
+            textField.text = ""
+        }
+        textField.resignFirstResponder()
+        return true
+    }
 }

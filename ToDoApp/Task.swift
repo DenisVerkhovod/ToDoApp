@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Realm
 import UserNotifications
 
 @objc enum Priority : Int {
@@ -28,8 +29,18 @@ class Task: Object  {
     @objc dynamic var isOverdue : Bool = false
     @objc dynamic var id = -1
     
+    
     override static func primaryKey() -> String? {
         return "id"
+    }
+    
+    static func idFactory() -> Int {
+        let taskWithMaxId = RealmData.current.results().max { $0.id < $1.id }
+        if let max = taskWithMaxId?.id {
+            return max + 1
+        } else {
+            return 1
+        }
     }
     
     func scheduleNotification() {
