@@ -11,6 +11,7 @@ import UIKit
 class ImageViewController: UIViewController {
     
     var image: UIImage!
+    var deleteImage: (() -> ())?
     
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
@@ -26,7 +27,20 @@ class ImageViewController: UIViewController {
             imageView.addGestureRecognizer(leftEdgeSwipe)
         }
     }
-
+    @IBAction func deleteImageAction(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Delete image?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { (action) in
+            self.deleteImage?()
+            self.navigationController?.popViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
     @objc func leftEdgeSwipe(sender: UIScreenEdgePanGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
@@ -37,9 +51,4 @@ extension ImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print(scrollView.contentSize)
-    }
-    
-    }
+}

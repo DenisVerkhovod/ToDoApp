@@ -655,6 +655,9 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ITz-IN-bhc"/>
                                     <barButtonItem systemItem="trash" id="V0b-NW-PZl">
                                         <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="deleteImageAction:" destination="EcJ-0p-NSj" id="Mwp-bU-q5E"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>

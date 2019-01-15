@@ -126,6 +126,11 @@ class DetailTableViewController: UITableViewController {
                         let imagePicker = ImagePickerService()
                         imagePicker.presentAlertController(in: self)
                     }
+                    destinationVC.deleteImage = { [unowned self] in
+                        RealmData.current.update(self.task, with: ["image": nil])
+                        self.imageView.image = UIImage(named: "camera")
+                        
+                    }
                 }
             case "nameTextSegue":
                 if let destinationVC = segue.destination as? EditTaskTextController {

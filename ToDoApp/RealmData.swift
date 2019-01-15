@@ -54,10 +54,10 @@ class RealmData {
         }
     }
     
-    func update(_ object: Object, with dictionary: [String : Any]) {
+    func update(_ object: Object, with dictionary: [String : Any?]) {
         do {
             try realm.write {
-                object.setValuesForKeys(dictionary)
+                object.setValuesForKeys(dictionary as [String : Any])
             }
         } catch  {
             
