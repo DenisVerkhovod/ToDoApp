@@ -22,7 +22,7 @@ class Task: Object  {
     @objc dynamic var name : String = ""
     @objc dynamic var note : String = ""
     @objc dynamic var priority : Priority = Priority.normal
-    @objc dynamic var date : Date! = nil
+    @objc dynamic var date : Date = Date()
     @objc dynamic var image : Data? = nil
     @objc dynamic var shouldRemind : Bool = false
     @objc dynamic var isComplete : Bool = false

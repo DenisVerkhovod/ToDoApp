@@ -296,11 +296,10 @@ class AllTasksTableViewController: UITableViewController {
                 return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
             }
         }()
-        if let date = task.date {
-            cell.dateLabel.text = dateFormatter(date: date)
-            
-            cell.priorityLabel.isHidden = Date() > date ? false : true
-        }
+        let date = task.date 
+        cell.dateLabel.text = dateFormatter(date: date)
+        
+        cell.outOfDateLabel.isHidden = Date() > date ? false : true
         
         cell.remindMeImageView.image = task.shouldRemind ? UIImage(named: "rengBell") : UIImage(named: "noiseBell")
         if let image = task.image {

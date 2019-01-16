@@ -12,7 +12,6 @@ class DetailTableViewController: UITableViewController {
     
     var task : Task!
     
-    
     @IBOutlet weak var nameLabel: UILabel! {
         didSet {
            nameLabel.text = task.name
@@ -70,17 +69,31 @@ class DetailTableViewController: UITableViewController {
             }
         }
     }
+    @IBOutlet weak var datePickerCell: UITableViewCell!
+    @IBOutlet weak var datePickerView: UIView! {
+        didSet {
+            datePickerView.layer.cornerRadius = Constant.cornerRadius
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 45
         tableView.rowHeight = UITableView.automaticDimension
         
         setDateLabel()
         setImage()
         
     }
+    
+    @IBAction func datePickerChanged(_ sender: UIDatePicker) {
+        
+        let date = sender.date
+        RealmData.current.update(self.task, with: ["date":date])
+        setDateLabel()
+        
+    }
+    //MARK: - Gesture actions
     
     @IBAction func backPanFromEdge(_ sender: UIScreenEdgePanGestureRecognizer) {
         
@@ -104,22 +117,23 @@ class DetailTableViewController: UITableViewController {
         
     }
     
+    @IBAction func dateViewTapped(_ sender: UITapGestureRecognizer) {
+        guard let dateCell = view.viewWithTag(3) as? UITableViewCell else { return }
+        dateCell.isHidden.toggle()
+        tableView.reloadData()
+    }
+    
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
         
     }
-    
-   
 
-   
     func setDateLabel() {
-        if let date = task.date {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .short
-            formatter.timeStyle = .short
-            dateLabel.text = formatter.string(from: date)
-        } else {
-            dateLabel.text = ""
-        }
+        let date = task.date
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        dateLabel.text = formatter.string(from: date)
+      
     }
     
     func setImage() {
@@ -129,6 +143,17 @@ class DetailTableViewController: UITableViewController {
             imageView.image = UIImage(named: "camera")
         }
     }
+    
+    // MARK: - TableView delegate's methods
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 3 {
+        return datePickerCell.isHidden ? 0 : 200
+        } else {
+            return 45
+        }
+    }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
@@ -181,3 +206,4 @@ extension DetailTableViewController: UIImagePickerControllerDelegate, UINavigati
         dismiss(animated: true, completion: nil)
     }
 }
+

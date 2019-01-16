@@ -285,12 +285,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vx-8h-N0O">
                                                     <rect key="frame" x="0.0" y="37.5" width="51" height="32"/>
                                                     <fontDescription key="fontDescription" name="LaoSangamMN" family="Lao Sangam MN" pointSize="12"/>
-                                                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elp-vm-ZIy">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elp-vm-ZIy">
                                             <rect key="frame" x="282" y="16" width="7" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="5" id="phe-ob-ivB"/>
@@ -397,7 +397,7 @@
                                                             <rect key="frame" x="5" y="5" width="329.5" height="24"/>
                                                             <gestureRecognizers/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                             <connections>
                                                                 <outletCollection property="gestureRecognizers" destination="xog-ml-d7k" appends="YES" id="T1S-Jc-Py2"/>
@@ -412,7 +412,7 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" red="0.047058823529411764" green="0.13333333333333333" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="e8K-bs-1MZ" firstAttribute="top" secondItem="qCK-x7-KBl" secondAttribute="top" constant="5" id="4xy-Yt-ITA"/>
                                                         <constraint firstItem="DxU-kn-II1" firstAttribute="centerY" secondItem="qCK-x7-KBl" secondAttribute="centerY" id="5ca-xB-MC8"/>
@@ -423,6 +423,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="qCK-x7-KBl" secondAttribute="trailing" constant="5" id="N5U-J0-i6G"/>
                                                 <constraint firstItem="qCK-x7-KBl" firstAttribute="top" secondItem="2SE-Nv-fZR" secondAttribute="top" constant="5" id="TDX-wu-6Ou"/>
@@ -499,17 +500,18 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0L-vI-nAW">
                                                             <rect key="frame" x="5" y="5" width="64.5" height="24"/>
                                                             <fontDescription key="fontDescription" name="LaoSangamMN" family="Lao Sangam MN" pointSize="16"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hei-lW-RCA">
-                                                            <rect key="frame" x="313" y="5" width="42" height="24"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <rect key="frame" x="317.5" y="5" width="37.5" height="24"/>
+                                                            <fontDescription key="fontDescription" name="LaoSangamMN" family="Lao Sangam MN" pointSize="16"/>
+                                                            <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="K0L-vI-nAW" secondAttribute="trailing" constant="20" symbolic="YES" id="9No-Qo-wXh"/>
                                                         <constraint firstAttribute="trailing" secondItem="hei-lW-RCA" secondAttribute="trailing" constant="10" id="Qko-oB-jU3"/>
@@ -520,6 +522,9 @@
                                                         <constraint firstItem="hei-lW-RCA" firstAttribute="centerY" secondItem="yIV-Jw-wOS" secondAttribute="centerY" id="tAp-NH-v7S"/>
                                                         <constraint firstItem="hei-lW-RCA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yIV-Jw-wOS" secondAttribute="leading" constant="20" symbolic="YES" id="xc7-wZ-fJ0"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="WNE-sG-XRC" appends="YES" id="TLn-LW-utm"/>
+                                                    </connections>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -531,8 +536,41 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
+                                    <tableViewCell hidden="YES" clipsSubviews="YES" tag="3" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="200" id="eQX-Z6-y1x" userLabel="DatePickerCell">
+                                        <rect key="frame" x="0.0" y="132" width="375" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eQX-Z6-y1x" id="xgw-kb-SJ7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nA1-TS-MV8">
+                                                    <rect key="frame" x="5" y="5" width="365" height="190"/>
+                                                    <subviews>
+                                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="q5y-Jb-NWv">
+                                                            <rect key="frame" x="0.0" y="-13" width="365" height="216"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                            <date key="date" timeIntervalSinceReferenceDate="569337647.77363205">
+                                                                <!--2019-01-16 13:20:47 +0000-->
+                                                            </date>
+                                                            <connections>
+                                                                <action selector="datePickerChanged:" destination="iVR-X1-QWO" eventType="valueChanged" id="vUC-ec-FYW"/>
+                                                            </connections>
+                                                        </datePicker>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="nA1-TS-MV8" secondAttribute="bottom" constant="5" id="FFY-U5-UxU"/>
+                                                <constraint firstItem="nA1-TS-MV8" firstAttribute="top" secondItem="xgw-kb-SJ7" secondAttribute="top" constant="5" id="jiI-xB-yuh"/>
+                                                <constraint firstItem="nA1-TS-MV8" firstAttribute="leading" secondItem="xgw-kb-SJ7" secondAttribute="leading" constant="5" id="lZ7-f8-Zvd"/>
+                                                <constraint firstAttribute="trailing" secondItem="nA1-TS-MV8" secondAttribute="trailing" constant="5" id="rCp-zG-OYS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ddS-yg-Ust" userLabel="RemindCell">
-                                        <rect key="frame" x="0.0" y="132" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="332" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ddS-yg-Ust" id="Owg-Rd-GDB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -544,7 +582,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwS-Yd-oQ5">
                                                             <rect key="frame" x="5" y="5" width="78" height="24"/>
                                                             <fontDescription key="fontDescription" name="LaoSangamMN" family="Lao Sangam MN" pointSize="16"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qza-1r-fpb">
@@ -585,6 +623,8 @@
                     </tableView>
                     <connections>
                         <outlet property="dateLabel" destination="hei-lW-RCA" id="B0S-bV-ES0"/>
+                        <outlet property="datePickerCell" destination="eQX-Z6-y1x" id="Oss-Sv-6Mc"/>
+                        <outlet property="datePickerView" destination="nA1-TS-MV8" id="ThS-Lb-s3s"/>
                         <outlet property="dateView" destination="yIV-Jw-wOS" id="YCT-Bv-KAh"/>
                         <outlet property="imageView" destination="glP-Dj-YrH" id="RnA-ua-Q9Z"/>
                         <outlet property="nameLabel" destination="e8K-bs-1MZ" id="OQO-os-m7j"/>
@@ -620,6 +660,11 @@
                 <tapGestureRecognizer id="xog-ml-d7k">
                     <connections>
                         <action selector="nameOrNoteTapped:" destination="iVR-X1-QWO" id="sps-rP-1VD"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="WNE-sG-XRC">
+                    <connections>
+                        <action selector="dateViewTapped:" destination="iVR-X1-QWO" id="nHT-Oi-rqL"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
