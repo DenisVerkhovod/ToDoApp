@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class DetailTableViewController: UITableViewController {
     
@@ -85,6 +86,8 @@ class DetailTableViewController: UITableViewController {
             datePickerView.layer.cornerRadius = Constant.cornerRadius
         }
     }
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
     
     
     override func viewDidLoad() {
@@ -101,6 +104,7 @@ class DetailTableViewController: UITableViewController {
         let date = sender.date
         RealmData.current.update(self.task, with: ["date":date])
         setDateLabel()
+        
         
     }
     //MARK: - Gesture actions
@@ -129,8 +133,25 @@ class DetailTableViewController: UITableViewController {
     
     @IBAction func dateViewTapped(_ sender: UITapGestureRecognizer) {
         guard let dateCell = view.viewWithTag(3) as? UITableViewCell else { return }
+        datePicker.date = task.date
         dateCell.isHidden.toggle()
         tableView.reloadData()
+    }
+    @IBAction func remindMeViewTapped(_ sender: UITapGestureRecognizer) {
+        let notification = LocalNotificationService()
+        
+        if task.shouldRemind {
+            RealmData.current.update(self.task, with: ["shouldRemind" : false])
+            notification.removeNotification(for: task)
+            remindImageView.image = UIImage(named: "noiseBell")
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        } else {
+            RealmData.current.update(self.task, with: ["shouldRemind" : true])
+            notification.scheduleNotification(for: task)
+            remindImageView.image = UIImage(named: "ringBell")
+            AudioServicesPlaySystemSound(1054)
+        }
+        
     }
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
@@ -157,12 +178,15 @@ class DetailTableViewController: UITableViewController {
     // MARK: - TableView delegate's methods
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 3 {
-        return datePickerCell.isHidden ? 0 : 200
-        } else {
+        switch indexPath.row {
+        case 1:
+            return 100
+        case 3:
+            return datePickerCell.isHidden ? 0 : 200
+        default:
             return 45
         }
-    }
+}
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

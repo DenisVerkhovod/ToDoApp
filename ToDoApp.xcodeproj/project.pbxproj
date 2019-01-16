@@ -10,6 +10,7 @@
 		128E9A67EE4E1B229B00667C /* Pods_ToDoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EA19749B546E032BBD80046 /* Pods_ToDoApp.framework */; };
 		92106564213ED42F00A3E534 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92106563213ED42F00A3E534 /* DetailTableViewController.swift */; };
 		922AD88121ECD00E004D3A7D /* ImagePickerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AD88021ECD00E004D3A7D /* ImagePickerService.swift */; };
+		922AD8A121EF978B004D3A7D /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AD8A021EF978B004D3A7D /* LocalNotificationService.swift */; };
 		922CB1512164D00000326280 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922CB1502164D00000326280 /* ImageViewController.swift */; };
 		9230F1EC212C9251000FF455 /* RealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9230F1EB212C9251000FF455 /* RealmData.swift */; };
 		9247C55821298DE600DC5B5F /* NewTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9247C55721298DE600DC5B5F /* NewTaskTableViewController.swift */; };
@@ -29,6 +30,7 @@
 		7EA19749B546E032BBD80046 /* Pods_ToDoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92106563213ED42F00A3E534 /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		922AD88021ECD00E004D3A7D /* ImagePickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerService.swift; sourceTree = "<group>"; };
+		922AD8A021EF978B004D3A7D /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
 		922CB1502164D00000326280 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		9230F1EB212C9251000FF455 /* RealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmData.swift; sourceTree = "<group>"; };
 		9247C55721298DE600DC5B5F /* NewTaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskTableViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				92E8A7DE2124556A003CA693 /* AppDelegate.swift */,
 				92E8A7F221245A67003CA693 /* TaskCell.swift */,
 				92E8A7F421245AF8003CA693 /* Task.swift */,
+				922AD8A021EF978B004D3A7D /* LocalNotificationService.swift */,
 				9230F1EB212C9251000FF455 /* RealmData.swift */,
 				92480DE7216739B8003CD38E /* Constant.swift */,
 				922AD88021ECD00E004D3A7D /* ImagePickerService.swift */,
@@ -246,6 +249,7 @@
 				927B7384216CA07600456237 /* EditTaskTextController.swift in Sources */,
 				92E8A7F121245A23003CA693 /* AllTasksTableViewController.swift in Sources */,
 				9230F1EC212C9251000FF455 /* RealmData.swift in Sources */,
+				922AD8A121EF978B004D3A7D /* LocalNotificationService.swift in Sources */,
 				9247C55821298DE600DC5B5F /* NewTaskTableViewController.swift in Sources */,
 				92E8A7F521245AF8003CA693 /* Task.swift in Sources */,
 				92E8A7F321245A67003CA693 /* TaskCell.swift in Sources */,

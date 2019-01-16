@@ -51,13 +51,13 @@ class AllTasksTableViewController: UITableViewController {
             return RealmData.current.resultsNotCompleted()
         }
     }
+    
 
   
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 80
@@ -69,6 +69,12 @@ class AllTasksTableViewController: UITableViewController {
         setObserveRealm()
         setTitleButton()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -301,7 +307,7 @@ class AllTasksTableViewController: UITableViewController {
         
         cell.outOfDateLabel.isHidden = Date() > date ? false : true
         
-        cell.remindMeImageView.image = task.shouldRemind ? UIImage(named: "rengBell") : UIImage(named: "noiseBell")
+        cell.remindMeImageView.image = task.shouldRemind ? UIImage(named: "ringBell") : UIImage(named: "noiseBell")
         if let image = task.image {
             cell.taskImageView.image = UIImage(data: image)
         }

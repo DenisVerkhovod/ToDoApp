@@ -56,21 +56,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let taskId = response.notification.request.identifier
+        guard let task = RealmData.current.realm.object(ofType: Task.self, forPrimaryKey: Int(taskId)) else { return }
+        RealmData.current.update(task, with: ["shouldRemind" : false])
         switch response.actionIdentifier {
         case "ok":
             break
         case "complete":
-            let taskId = response.notification.request.identifier
-            if let task = RealmData.current.realm.object(ofType: Task.self, forPrimaryKey: Int(taskId)) {
                 RealmData.current.update(task, with: ["isComplete" : true])
-            }
-            break
         case "delete":
-            let taskId = response.notification.request.identifier
-            if let task = RealmData.current.realm.object(ofType: Task.self, forPrimaryKey: Int(taskId)) {
                 RealmData.current.delete(task)
-            }
-            break
         default:
             break
         }
