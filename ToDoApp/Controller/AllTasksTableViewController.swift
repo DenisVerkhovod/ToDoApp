@@ -33,6 +33,8 @@ class AllTasksTableViewController: UITableViewController {
     var newTaskViewOffset: CGFloat {
         return newTaskViewHeight + 40
     }
+    
+    var tap = UITapGestureRecognizer()
 
     var results : Results<Task> {
         get {
@@ -68,6 +70,10 @@ class AllTasksTableViewController: UITableViewController {
         
         setObserveRealm()
         setTitleButton()
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(cancelEditing))
+        tap.delegate = self
+        self.view.addGestureRecognizer(tap)
         
     }
     
@@ -150,7 +156,7 @@ class AllTasksTableViewController: UITableViewController {
     func addNewTaskView() {
         
         newTaskView = UIView(frame: CGRect(x: 0, y: self.view.frame.maxY + newTaskViewHeight, width: view.bounds.size.width, height: newTaskViewHeight))
-        newTaskView.backgroundColor = UIColor.white
+        newTaskView.backgroundColor = UIColor.clear
         newTaskView.layer.cornerRadius = Constant.cornerRadius
         newTaskView.clipsToBounds = true
         self.navigationController?.view.addSubview(newTaskView)
@@ -179,7 +185,8 @@ class AllTasksTableViewController: UITableViewController {
             ])
         
         newTaskTextField = UITextField()
-        newTaskTextField.backgroundColor = .green
+        newTaskTextField.backgroundColor = .white
+        newTaskTextField.borderStyle = .roundedRect
         newTaskTextField.placeholder = "Add Task..."
         newTaskView.addSubview(newTaskTextField)
         
@@ -276,6 +283,12 @@ class AllTasksTableViewController: UITableViewController {
         newTaskButton.alpha = 1
     }
     
+    @objc func cancelEditing() {
+        if newTaskTextField.isFirstResponder {
+            newTaskTextField.resignFirstResponder()
+        }
+        
+    }
     
     // MARK: - Table view data source
     
@@ -375,5 +388,17 @@ extension AllTasksTableViewController: UITextFieldDelegate {
         }
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension AllTasksTableViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer == tap else { return true }
+        if newTaskTextField.isFirstResponder {
+            return true
+        } else {
+            return false
+        }
     }
 }

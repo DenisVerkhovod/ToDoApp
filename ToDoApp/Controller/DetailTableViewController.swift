@@ -34,7 +34,7 @@ class DetailTableViewController: UITableViewController {
         }
     }
 
-    @IBOutlet weak var pickerView: UIPickerView! {
+    @IBOutlet weak var pickerView: AreaTapPickerView! {
         didSet {
             pickerView.dataSource = self
             pickerView.delegate = self
@@ -188,6 +188,9 @@ class DetailTableViewController: UITableViewController {
         }
 }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {

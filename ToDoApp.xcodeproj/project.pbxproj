@@ -11,6 +11,7 @@
 		92106564213ED42F00A3E534 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92106563213ED42F00A3E534 /* DetailTableViewController.swift */; };
 		922AD88121ECD00E004D3A7D /* ImagePickerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AD88021ECD00E004D3A7D /* ImagePickerService.swift */; };
 		922AD8A121EF978B004D3A7D /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AD8A021EF978B004D3A7D /* LocalNotificationService.swift */; };
+		922AD8A321EFB923004D3A7D /* AreaTapPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AD8A221EFB923004D3A7D /* AreaTapPickerView.swift */; };
 		922CB1512164D00000326280 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922CB1502164D00000326280 /* ImageViewController.swift */; };
 		9230F1EC212C9251000FF455 /* RealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9230F1EB212C9251000FF455 /* RealmData.swift */; };
 		9247C55821298DE600DC5B5F /* NewTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9247C55721298DE600DC5B5F /* NewTaskTableViewController.swift */; };
@@ -31,6 +32,7 @@
 		92106563213ED42F00A3E534 /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		922AD88021ECD00E004D3A7D /* ImagePickerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerService.swift; sourceTree = "<group>"; };
 		922AD8A021EF978B004D3A7D /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
+		922AD8A221EFB923004D3A7D /* AreaTapPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaTapPickerView.swift; sourceTree = "<group>"; };
 		922CB1502164D00000326280 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		9230F1EB212C9251000FF455 /* RealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmData.swift; sourceTree = "<group>"; };
 		9247C55721298DE600DC5B5F /* NewTaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskTableViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				922AD88021ECD00E004D3A7D /* ImagePickerService.swift */,
 				922CB1522164D54800326280 /* Controller */,
 				92E8A7E22124556A003CA693 /* Main.storyboard */,
+				922AD8A221EFB923004D3A7D /* AreaTapPickerView.swift */,
 				92E8A7E52124556C003CA693 /* Assets.xcassets */,
 				92E8A7E72124556C003CA693 /* LaunchScreen.storyboard */,
 				92E8A7EA2124556C003CA693 /* Info.plist */,
@@ -247,6 +250,7 @@
 			files = (
 				92106564213ED42F00A3E534 /* DetailTableViewController.swift in Sources */,
 				927B7384216CA07600456237 /* EditTaskTextController.swift in Sources */,
+				922AD8A321EFB923004D3A7D /* AreaTapPickerView.swift in Sources */,
 				92E8A7F121245A23003CA693 /* AllTasksTableViewController.swift in Sources */,
 				9230F1EC212C9251000FF455 /* RealmData.swift in Sources */,
 				922AD8A121EF978B004D3A7D /* LocalNotificationService.swift in Sources */,
