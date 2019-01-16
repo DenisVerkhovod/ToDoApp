@@ -32,9 +32,13 @@ class DetailTableViewController: UITableViewController {
             noteView.layer.cornerRadius = Constant.cornerRadius
         }
     }
-    @IBOutlet weak var priorityView: UIView! {
+
+    @IBOutlet weak var pickerView: UIPickerView! {
         didSet {
-            priorityView.layer.cornerRadius = Constant.cornerRadius
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            pickerView.layer.cornerRadius = Constant.cornerRadius
+            pickerView.selectRow(task.priority, inComponent: 0, animated: false)
         }
     }
     
@@ -44,12 +48,12 @@ class DetailTableViewController: UITableViewController {
             priorityLabel.layer.cornerRadius = priorityLabel.frame.size.height / 2
             
             switch task.priority {
-            case .low:
-                priorityLabel.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-            case .normal:
-                priorityLabel.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            case .high:
-                priorityLabel.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+            case 0:
+                priorityLabel.backgroundColor = UIColor.green
+            case 2:
+                priorityLabel.backgroundColor = UIColor.red
+            default:
+                priorityLabel.backgroundColor = UIColor.yellow
             }
         }
     }
@@ -213,3 +217,40 @@ extension DetailTableViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
+extension DetailTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        let pickview = UIView(frame: CGRect(x: 0, y: 0, width: pickerView.frame.size.width - 2, height: pickerView.frame.size.height - 2))
+        pickview.layer.cornerRadius = pickview.frame.size.width / 2
+        switch row {
+        case 0:
+            pickview.backgroundColor = .green
+        case 1:
+            pickview.backgroundColor = .yellow
+        case 2:
+            pickview.backgroundColor = .red
+        default:
+            break
+        }
+        
+        return pickview
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return pickerView.frame.size.height
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        RealmData.current.update(self.task, with: ["priority" : row])
+        
+    }
+    
+}

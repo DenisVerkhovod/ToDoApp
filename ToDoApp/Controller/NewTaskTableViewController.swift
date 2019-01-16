@@ -69,16 +69,8 @@ class NewTaskTableViewController: UITableViewController, UITextFieldDelegate, UI
             if addPhotoButton.image(for: .normal) != UIImage(named: "camera") {
                 task.image = addPhotoButton.image(for: .normal)!.pngData()
             }
-            switch prioritySegment.selectedSegmentIndex {
-            case 0:
-                task.priority = .low
-            case 1:
-                task.priority = .normal
-            case 2:
-                task.priority = .high
-            default:
-                task.priority = .normal
-            }
+            task.priority = prioritySegment.selectedSegmentIndex 
+            
             if dueDateSwitch.isOn {
             task.date = datePicker.date
             }

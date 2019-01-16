@@ -11,17 +11,13 @@ import RealmSwift
 import Realm
 import UserNotifications
 
-@objc enum Priority : Int {
-    case low
-    case normal
-    case high
-}
+
 
 class Task: Object  {
     
     @objc dynamic var name : String = ""
     @objc dynamic var note : String = ""
-    @objc dynamic var priority : Priority = Priority.normal
+    @objc dynamic var priority : Int = 1
     @objc dynamic var date : Date = Date()
     @objc dynamic var image : Data? = nil
     @objc dynamic var shouldRemind : Bool = false

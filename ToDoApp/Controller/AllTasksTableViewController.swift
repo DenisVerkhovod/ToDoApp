@@ -288,12 +288,12 @@ class AllTasksTableViewController: UITableViewController {
         cell.taskNoteLabel.text = task.note
         cell.priorityLabel.backgroundColor = {
             switch task.priority {
-            case .high:
-                return #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-            case .normal:
-                return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            case .low:
-                return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+            case 0:
+                return UIColor.green
+            case 2:
+                return UIColor.red
+            default:
+                return UIColor.yellow
             }
         }()
         let date = task.date 

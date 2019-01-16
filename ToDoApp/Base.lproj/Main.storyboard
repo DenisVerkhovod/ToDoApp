@@ -411,35 +411,23 @@
                                                         <constraint firstItem="e8K-bs-1MZ" firstAttribute="leading" secondItem="qCK-x7-KBl" secondAttribute="leading" constant="5" id="vde-PQ-ASN"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ddd-AR-Zfo" userLabel="PriorityView">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxU-60-n3l">
                                                     <rect key="frame" x="340" y="5" width="30" height="34"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DxU-kn-II1">
-                                                            <rect key="frame" x="5" y="7" width="20.5" height="20.5"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="DxU-kn-II1" secondAttribute="height" multiplier="1:1" id="B5Q-xv-aah"/>
-                                                                <constraint firstAttribute="height" constant="20.5" id="RUg-wq-9at"/>
-                                                            </constraints>
-                                                        </view>
-                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="DxU-kn-II1" firstAttribute="centerX" secondItem="Ddd-AR-Zfo" secondAttribute="centerX" id="bPj-nt-nJT"/>
-                                                        <constraint firstItem="DxU-kn-II1" firstAttribute="centerY" secondItem="Ddd-AR-Zfo" secondAttribute="centerY" id="cTZ-ki-6Lp"/>
-                                                        <constraint firstAttribute="width" secondItem="Ddd-AR-Zfo" secondAttribute="height" multiplier="15:17" id="ysJ-ps-d2F"/>
-                                                        <constraint firstAttribute="width" constant="30" id="yz2-cv-YMA"/>
+                                                        <constraint firstAttribute="width" constant="30" id="DdP-hv-oMX"/>
+                                                        <constraint firstAttribute="width" secondItem="jxU-60-n3l" secondAttribute="height" multiplier="15:17" id="ewt-AH-Gg1"/>
                                                     </constraints>
-                                                </view>
+                                                </pickerView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="Ddd-AR-Zfo" firstAttribute="top" secondItem="2SE-Nv-fZR" secondAttribute="top" constant="5" id="RdW-G4-Gne"/>
                                                 <constraint firstItem="qCK-x7-KBl" firstAttribute="top" secondItem="2SE-Nv-fZR" secondAttribute="top" constant="5" id="TDX-wu-6Ou"/>
-                                                <constraint firstItem="Ddd-AR-Zfo" firstAttribute="leading" secondItem="qCK-x7-KBl" secondAttribute="trailing" constant="5" id="a5r-fG-wp9"/>
-                                                <constraint firstAttribute="bottom" secondItem="Ddd-AR-Zfo" secondAttribute="bottom" constant="5" id="hHH-Ie-5j6"/>
+                                                <constraint firstAttribute="bottom" secondItem="jxU-60-n3l" secondAttribute="bottom" constant="5" id="ekz-70-euG"/>
+                                                <constraint firstItem="jxU-60-n3l" firstAttribute="top" secondItem="2SE-Nv-fZR" secondAttribute="top" constant="5" id="j03-6W-RYH"/>
                                                 <constraint firstAttribute="bottom" secondItem="qCK-x7-KBl" secondAttribute="bottom" constant="5" id="oG4-Nn-twn"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ddd-AR-Zfo" secondAttribute="trailing" constant="5" id="sb2-Un-AC5"/>
+                                                <constraint firstItem="jxU-60-n3l" firstAttribute="leading" secondItem="qCK-x7-KBl" secondAttribute="trailing" constant="5" id="r7v-Qr-dfY"/>
+                                                <constraint firstAttribute="trailing" secondItem="jxU-60-n3l" secondAttribute="trailing" constant="5" id="tVo-hH-3ld"/>
                                                 <constraint firstItem="qCK-x7-KBl" firstAttribute="leading" secondItem="2SE-Nv-fZR" secondAttribute="leading" constant="5" id="vYi-h8-faC"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -644,8 +632,7 @@
                         <outlet property="noteCell" destination="8J2-gp-Mho" id="fe4-PQ-LTF"/>
                         <outlet property="noteLabel" destination="f3B-h6-J78" id="eiB-Vb-DM7"/>
                         <outlet property="noteView" destination="UNR-zM-a2y" id="qLI-vD-twq"/>
-                        <outlet property="priorityLabel" destination="DxU-kn-II1" id="z8B-3n-f1b"/>
-                        <outlet property="priorityView" destination="Ddd-AR-Zfo" id="6lj-yV-WkO"/>
+                        <outlet property="pickerView" destination="jxU-60-n3l" id="ShL-sd-9ns"/>
                         <outlet property="remindImageView" destination="Qza-1r-fpb" id="5K1-kk-c7u"/>
                         <outlet property="remindView" destination="dQz-0i-0WM" id="ogb-XO-i1h"/>
                         <segue destination="EcJ-0p-NSj" kind="show" identifier="imageSegue" id="Mix-KM-RCf"/>
