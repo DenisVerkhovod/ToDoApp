@@ -32,6 +32,12 @@ class DetailTableViewController: UITableViewController {
             noteView.layer.cornerRadius = Constant.cornerRadius
         }
     }
+    @IBOutlet weak var priorityView: UIView! {
+        didSet {
+            priorityView.layer.cornerRadius = Constant.cornerRadius
+        }
+    }
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var priorityLabel: UIView! {
         didSet {
