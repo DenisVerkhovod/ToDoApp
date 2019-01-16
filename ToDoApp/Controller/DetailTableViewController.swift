@@ -55,6 +55,21 @@ class DetailTableViewController: UITableViewController {
             dateView.layer.cornerRadius = Constant.cornerRadius
         }
     }
+    @IBOutlet weak var remindView: UIView! {
+        didSet {
+            remindView.layer.cornerRadius = Constant.cornerRadius
+        }
+    }
+    
+    @IBOutlet weak var remindImageView: UIImageView! {
+        didSet {
+            if task.shouldRemind {
+                remindImageView.image = UIImage(named: "ringBell")
+            } else {
+                remindImageView.image = UIImage(named: "noiseBell")
+            }
+        }
+    }
     
     
     override func viewDidLoad() {

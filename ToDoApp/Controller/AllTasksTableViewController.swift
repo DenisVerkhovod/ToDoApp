@@ -60,6 +60,7 @@ class AllTasksTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.estimatedRowHeight = 80
         addNewTaskButton()
         addNewTaskView()
         
@@ -70,9 +71,10 @@ class AllTasksTableViewController: UITableViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     deinit {
@@ -283,6 +285,7 @@ class AllTasksTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TaskCell
         let task = results[indexPath.row]
         cell.taskNameLabel.text = task.name
+        cell.taskNoteLabel.text = task.note
         cell.priorityLabel.backgroundColor = {
             switch task.priority {
             case .high:
@@ -295,7 +298,15 @@ class AllTasksTableViewController: UITableViewController {
         }()
         if let date = task.date {
             cell.dateLabel.text = dateFormatter(date: date)
+            
+            cell.priorityLabel.isHidden = Date() > date ? false : true
         }
+        
+        cell.remindMeImageView.image = task.shouldRemind ? UIImage(named: "rengBell") : UIImage(named: "noiseBell")
+        if let image = task.image {
+            cell.taskImageView.image = UIImage(data: image)
+        }
+        
         return cell
     }
     

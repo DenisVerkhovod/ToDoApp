@@ -22,6 +22,7 @@ class EditTaskTextController: UIViewController {
         if let text = text {
             textView.text = text
     }
+        textView.becomeFirstResponder()
     
     }
     
