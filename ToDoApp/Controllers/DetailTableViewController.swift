@@ -15,7 +15,7 @@ class DetailTableViewController: UITableViewController {
     
     @IBOutlet weak var nameLabel: UILabel! {
         didSet {
-           nameLabel.text = task.name
+            nameLabel.text = task.name
         }
     }
     @IBOutlet weak var nameView: UIView! {
@@ -33,7 +33,6 @@ class DetailTableViewController: UITableViewController {
             noteView.layer.cornerRadius = Constant.cornerRadius
         }
     }
-
     @IBOutlet weak var pickerView: AreaTapPickerView! {
         didSet {
             pickerView.dataSource = self
@@ -42,23 +41,15 @@ class DetailTableViewController: UITableViewController {
             pickerView.selectRow(task.priority, inComponent: 0, animated: false)
         }
     }
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var priorityLabel: UIView! {
+    @IBOutlet weak var imageView: UIImageView! {
         didSet {
-            priorityLabel.layer.cornerRadius = priorityLabel.frame.size.height / 2
-            
-            switch task.priority {
-            case 0:
-                priorityLabel.backgroundColor = UIColor.green
-            case 2:
-                priorityLabel.backgroundColor = UIColor.red
-            default:
-                priorityLabel.backgroundColor = UIColor.yellow
+            if let image = task.image {
+                imageView.image = UIImage(data: image)
+            } else {
+                imageView.image = UIImage(named: "camera")
             }
         }
     }
-    @IBOutlet weak var noteCell: UITableViewCell!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dateView: UIView! {
         didSet {
@@ -70,7 +61,6 @@ class DetailTableViewController: UITableViewController {
             remindView.layer.cornerRadius = Constant.cornerRadius
         }
     }
-    
     @IBOutlet weak var remindImageView: UIImageView! {
         didSet {
             if task.shouldRemind {
@@ -88,36 +78,31 @@ class DetailTableViewController: UITableViewController {
     }
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    
+    //MARK: - View's lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableView.automaticDimension
         
         setDateLabel()
-        setImage()
-        
     }
     
+    
+    //MARK: - Handler method for change date
+    
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-        
         let date = sender.date
-        RealmData.current.update(self.task, with: ["date":date])
+        RealmData.current.update(self.task, with: ["date" : date])
         setDateLabel()
-        
-        
     }
+    
     //MARK: - Gesture actions
     
     @IBAction func backPanFromEdge(_ sender: UIScreenEdgePanGestureRecognizer) {
-        
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func imageViewTapped(_ sender: UITapGestureRecognizer) {
-        
         performSegue(withIdentifier: "imageSegue", sender: self)
-        
     }
     
     @IBAction func nameOrNoteTapped(_ sender: UITapGestureRecognizer) {
@@ -128,7 +113,6 @@ class DetailTableViewController: UITableViewController {
                 performSegue(withIdentifier: "noteTextSegue", sender: self)
             }
         }
-        
     }
     
     @IBAction func dateViewTapped(_ sender: UITapGestureRecognizer) {
@@ -137,6 +121,7 @@ class DetailTableViewController: UITableViewController {
         dateCell.isHidden.toggle()
         tableView.reloadData()
     }
+    
     @IBAction func remindMeViewTapped(_ sender: UITapGestureRecognizer) {
         let notification = LocalNotificationService()
         
@@ -158,28 +143,16 @@ class DetailTableViewController: UITableViewController {
             remindImageView.image = UIImage(named: "ringBell")
             AudioServicesPlaySystemSound(1054)
         }
-        
     }
     
-    @IBAction func unwindSegue(segue: UIStoryboardSegue) {
-        
-    }
-
-    func setDateLabel() {
+    //MARK: - Set up dateLabel with formated date
+    
+    private func setDateLabel() {
         let date = task.date
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .short
         dateLabel.text = formatter.string(from: date)
-      
-    }
-    
-    func setImage() {
-        if let image = task.image {
-            imageView.image = UIImage(data: image)
-        } else {
-            imageView.image = UIImage(named: "camera")
-        }
     }
     
     // MARK: - TableView delegate's methods
@@ -193,12 +166,14 @@ class DetailTableViewController: UITableViewController {
         default:
             return 45
         }
-}
+    }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
     }
-
+    
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -210,6 +185,7 @@ class DetailTableViewController: UITableViewController {
                         let imagePicker = ImagePickerService()
                         imagePicker.presentAlertController(in: self)
                     }
+                    
                     destinationVC.deleteImage = { [unowned self] in
                         RealmData.current.update(self.task, with: ["image": nil])
                         self.imageView.image = UIImage(named: "camera")
@@ -219,6 +195,7 @@ class DetailTableViewController: UITableViewController {
                 if let destinationVC = segue.destination as? EditTaskTextController {
                     destinationVC.title = "Task"
                     destinationVC.text = task.name
+                    
                     destinationVC.completion = { [unowned self] text in
                         RealmData.current.update(self.task, with: ["name": text])
                         self.nameLabel.text = text
@@ -228,6 +205,7 @@ class DetailTableViewController: UITableViewController {
                 if let destinationVC = segue.destination as? EditTaskTextController {
                     destinationVC.title = "Note"
                     destinationVC.text = task.note
+                    
                     destinationVC.completion = { [unowned self] text in
                         RealmData.current.update(self.task, with: ["note": text])
                         self.noteLabel.text = text
@@ -240,12 +218,14 @@ class DetailTableViewController: UITableViewController {
     }
 }
 
+//MARK: - Extensions
+
 extension DetailTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-       
+        
         RealmData.current.update(self.task, with: ["image": image.pngData()!])
         imageView.image = image
         dismiss(animated: true, completion: nil)
@@ -253,6 +233,7 @@ extension DetailTableViewController: UIImagePickerControllerDelegate, UINavigati
 }
 
 extension DetailTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -279,13 +260,8 @@ extension DetailTableViewController: UIPickerViewDataSource, UIPickerViewDelegat
         return pickview
     }
     
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return pickerView.frame.size.height
-    }
-    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         RealmData.current.update(self.task, with: ["priority" : row])
-        
     }
     
 }

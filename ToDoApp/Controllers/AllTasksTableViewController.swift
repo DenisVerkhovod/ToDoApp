@@ -278,7 +278,7 @@ class AllTasksTableViewController: UITableViewController {
         
         return cell
     }
-
+    
     private func dateFormatter(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .short

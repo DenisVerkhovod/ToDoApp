@@ -17,6 +17,5 @@ struct Constant {
     
     static let newTaskButtonOffset: CGFloat = 20
     static let newTaskButtonHeight: CGFloat = 50
-//    static let newTaskViewWidthOffset: CGFloat = 30
     static let newTaskTextFieldOffset: CGFloat = 5
 }

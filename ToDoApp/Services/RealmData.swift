@@ -17,8 +17,6 @@ class RealmData {
     
     var realm = try! Realm()
     
-    
-    
     func results() -> Results<Task> {
         let tasks : Results<Task> = realm.objects(Task.self)
         return tasks
@@ -49,8 +47,8 @@ class RealmData {
             try realm.write {
                 realm.add(object)
             }
-        } catch  {
-            
+        } catch let error  {
+            print(error)
         }
     }
     
@@ -59,26 +57,21 @@ class RealmData {
             try realm.write {
                 object.setValuesForKeys(dictionary as [String : Any])
             }
-        } catch  {
-            
+        } catch let error {
+            print(error)
         }
     }
     
     func delete(_ object: Object) {
         if let task = object as? Task {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [String(task.id)])
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [String(task.id)])
         }
         do {
             try realm.write {
                 realm.delete(object)
             }
-        } catch  {
-            
+        } catch let error {
+            print(error)
         }
     }
-    
-    
-
-    
-    
 }

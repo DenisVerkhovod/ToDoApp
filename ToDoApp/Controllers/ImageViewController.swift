@@ -18,15 +18,20 @@ class ImageViewController: UIViewController {
             scrollView.delegate = self
         }
     }
-
-   @IBOutlet weak var imageView: UIImageView! {
+    @IBOutlet weak var imageView: UIImageView! {
         didSet{
             imageView.image = image
+            
             let leftEdgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(leftEdgeSwipe(sender:)))
             leftEdgeSwipe.edges = [.left]
             imageView.addGestureRecognizer(leftEdgeSwipe)
         }
     }
+    
+    @objc func leftEdgeSwipe(sender: UIScreenEdgePanGestureRecognizer) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func deleteImageAction(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Delete image?", message: nil, preferredStyle: UIAlertController.Style.alert)
         let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { (action) in
@@ -38,13 +43,10 @@ class ImageViewController: UIViewController {
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
-        
-    }
-    
-    @objc func leftEdgeSwipe(sender: UIScreenEdgePanGestureRecognizer) {
-        dismiss(animated: true, completion: nil)
     }
 }
+
+//MARK: - Extensions
 
 extension ImageViewController: UIScrollViewDelegate {
     

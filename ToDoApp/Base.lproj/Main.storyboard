@@ -393,7 +393,6 @@
                         <outlet property="imageView" destination="glP-Dj-YrH" id="RnA-ua-Q9Z"/>
                         <outlet property="nameLabel" destination="e8K-bs-1MZ" id="OQO-os-m7j"/>
                         <outlet property="nameView" destination="qCK-x7-KBl" id="euq-0h-j3L"/>
-                        <outlet property="noteCell" destination="8J2-gp-Mho" id="fe4-PQ-LTF"/>
                         <outlet property="noteLabel" destination="f3B-h6-J78" id="eiB-Vb-DM7"/>
                         <outlet property="noteView" destination="UNR-zM-a2y" id="qLI-vD-twq"/>
                         <outlet property="pickerView" destination="jxU-60-n3l" id="ShL-sd-9ns"/>
