@@ -174,6 +174,9 @@ class DetailTableViewController: UITableViewController {
     
     // MARK: - Navigation
     
+    @IBAction func close(segue: UIStoryboardSegue) {
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {

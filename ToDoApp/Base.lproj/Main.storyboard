@@ -450,7 +450,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -465,7 +465,7 @@
                     <navigationItem key="navigationItem" id="B7I-Hj-MxR">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="LpV-Eo-jhb">
                             <connections>
-                                <segue destination="qe8-fk-WAX" kind="unwind" unwindAction="unwindSegueWithSegue:" id="FDF-w2-Q5y"/>
+                                <segue destination="qe8-fk-WAX" kind="unwind" unwindAction="closeWithSegue:" id="R8b-oG-vyg"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="OdO-Hv-1zk">
