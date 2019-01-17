@@ -25,7 +25,7 @@ class DetailTableViewController: UITableViewController {
     }
     @IBOutlet weak var noteLabel: UILabel! {
         didSet {
-            noteLabel.text = task.note
+            noteLabel.text = task.note.isEmpty ? "Add note..." : task.note
         }
     }
     @IBOutlet weak var noteView: UIView! {
@@ -76,7 +76,7 @@ class DetailTableViewController: UITableViewController {
             if task.shouldRemind {
                 remindImageView.image = UIImage(named: "ringBell")
             } else {
-                remindImageView.image = UIImage(named: "noiseBell")
+                remindImageView.image = UIImage(named: "muteBell")
             }
         }
     }
@@ -143,9 +143,16 @@ class DetailTableViewController: UITableViewController {
         if task.shouldRemind {
             RealmData.current.update(self.task, with: ["shouldRemind" : false])
             notification.removeNotification(for: task)
-            remindImageView.image = UIImage(named: "noiseBell")
+            remindImageView.image = UIImage(named: "muteBell")
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         } else {
+            guard task.date > Date() else {
+                let alertController = UIAlertController(title: "The task is overdue.", message: "You should change task's date to set up remind.", preferredStyle: UIAlertController.Style.alert)
+                let action = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+                alertController.addAction(action)
+                present(alertController, animated: true, completion: nil)
+                return
+            }
             RealmData.current.update(self.task, with: ["shouldRemind" : true])
             notification.scheduleNotification(for: task)
             remindImageView.image = UIImage(named: "ringBell")
@@ -206,11 +213,11 @@ class DetailTableViewController: UITableViewController {
                     destinationVC.deleteImage = { [unowned self] in
                         RealmData.current.update(self.task, with: ["image": nil])
                         self.imageView.image = UIImage(named: "camera")
-                        
                     }
                 }
             case "nameTextSegue":
                 if let destinationVC = segue.destination as? EditTaskTextController {
+                    destinationVC.title = "Task"
                     destinationVC.text = task.name
                     destinationVC.completion = { [unowned self] text in
                         RealmData.current.update(self.task, with: ["name": text])
@@ -219,6 +226,7 @@ class DetailTableViewController: UITableViewController {
                 }
             case "noteTextSegue":
                 if let destinationVC = segue.destination as? EditTaskTextController {
+                    destinationVC.title = "Note"
                     destinationVC.text = task.note
                     destinationVC.completion = { [unowned self] text in
                         RealmData.current.update(self.task, with: ["note": text])

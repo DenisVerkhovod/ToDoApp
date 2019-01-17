@@ -21,6 +21,7 @@ class AllTasksTableViewController: UITableViewController {
     
     var filterMode : FilterMode!
     var notificationToken: NotificationToken?
+    
     var newTaskButton: UIButton!
     var newTaskView: UIView!
     var newTaskTextField: UITextField! {
@@ -30,12 +31,9 @@ class AllTasksTableViewController: UITableViewController {
     }
     
     var newTaskViewHeight: CGFloat = 40
-    var newTaskViewOffset: CGFloat {
-        return newTaskViewHeight + 40
-    }
     
     var tap = UITapGestureRecognizer()
-
+    
     var results : Results<Task> {
         get {
             switch filterMode {
@@ -54,15 +52,13 @@ class AllTasksTableViewController: UITableViewController {
         }
     }
     
-
-  
+    //MARK: - View's lifecycle methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        tableView.estimatedRowHeight = 80
+        
         addNewTaskButton()
         addNewTaskView()
         
@@ -91,69 +87,53 @@ class AllTasksTableViewController: UITableViewController {
     
     deinit {
         notificationToken?.invalidate()
-        print("INVALIDATE TOKEN")
     }
     
+    //MARK: - Set Realm Notifications
     
-    @IBAction func close(segue: UIStoryboardSegue) {
-        
+    func setObserveRealm() {
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
     }
     
+    //MARK: -  NewTask button and newTask textField
     
-    
-    // Set Realm Notifications
-        func setObserveRealm() {
-            notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
-                guard let tableView = self?.tableView else { return }
-                switch changes {
-                case .initial:
-                    // Results are now populated and can be accessed without blocking the UI
-                    tableView.reloadData()
-                case .update(_, let deletions, let insertions, let modifications):
-                    // Query results have changed, so apply them to the UITableView
-                    tableView.beginUpdates()
-                    tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                         with: .automatic)
-                    tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                         with: .automatic)
-                    tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                         with: .automatic)
-                    tableView.endUpdates()
-                case .error(let error):
-                    // An error occurred while opening the Realm file on the background worker thread
-                    fatalError("\(error)")
-                }
-        }
-        }
-    
-    //MARK: -  New Task Button
-    
-    func addNewTaskButton () {
+    private func addNewTaskButton () {
         newTaskButton = UIButton()
-        
         newTaskButton.setImage(UIImage(named: "plusButton"), for: .normal)
         tableView.addSubview(newTaskButton)
         newTaskButton.addTarget(self, action: #selector(addButtonPressed(sender:)), for: .touchUpInside)
-
-        newTaskButton.translatesAutoresizingMaskIntoConstraints = false
-        newTaskButton.heightAnchor.constraint(equalToConstant: Constant.newTaskButtonHeight).isActive = true
         
+        newTaskButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            newTaskButton.heightAnchor.constraint(equalToConstant: Constant.newTaskButtonHeight),
             newTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             newTaskButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.newTaskButtonOffset)
             ])
     }
     
-    @objc func addButtonPressed(sender: UIButton) {
-        
-//        performSegue(withIdentifier: "NewTaskTableViewController", sender: self)
-//        newTaskAnimator()
+    @objc private func addButtonPressed(sender: UIButton) {
         newTaskButton.alpha = 0
         newTaskTextField.becomeFirstResponder()
-
     }
     
-    func addNewTaskView() {
+    private func addNewTaskView() {
         
         newTaskView = UIView(frame: CGRect(x: 0, y: self.view.frame.maxY + newTaskViewHeight, width: view.bounds.size.width, height: newTaskViewHeight))
         newTaskView.backgroundColor = UIColor.clear
@@ -161,19 +141,9 @@ class AllTasksTableViewController: UITableViewController {
         newTaskView.clipsToBounds = true
         self.navigationController?.view.addSubview(newTaskView)
         
-//        newTaskView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            newTaskView.heightAnchor.constraint(equalToConstant: newTaskViewHeight),
-//            newTaskView.widthAnchor.constraint(equalToConstant: self.tableView.bounds.width),
-//            newTaskView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-////            newTaskView.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: 0)
-//            ])
-        
         let imageView = UIImageView(image: UIImage(named: "plusButton"))
         let size: CGFloat = newTaskViewHeight - 10
-//        imageView.frame.size = CGSize(width: size, height: size)
         imageView.contentMode = .scaleToFill
-        
         newTaskView.addSubview(imageView)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -199,45 +169,34 @@ class AllTasksTableViewController: UITableViewController {
             ])
     }
     
-//    func newTaskAnimator() {
-//
-//
-//        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
-//           self.newTaskView.frame.origin.y -= self.newTaskViewOffset
-//        }, completion: nil)
-//
-//    }
+    // MARK: - Alert controller for navigation's bar title
     
-    
-    // MARK: - Alert controller to navigation's bar title
-    
-    func setTitleButton() {
+    private func setTitleButton() {
         let button = UIButton(type: UIButton.ButtonType.system)
-        button.setAttributedTitle(attributedNav(title: "Tasks ∨"), for: .normal)
+        button.setAttributedTitle(navBarAttributed(title: "Tasks ∨"), for: .normal)
         button.addTarget(self, action: #selector(titleButtonPressed(sender:)), for: .touchUpInside)
         self.navigationItem.titleView = button
     }
     
-    @objc func titleButtonPressed(sender: UIButton) {
+    @objc private func titleButtonPressed(sender: UIButton) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let azSort = UIAlertAction(title: "A - Z", style: .default) { action in
+        let azSort = UIAlertAction(title: "A - Z", style: .default) { _ in
             self.filterMode = .descending
             self.setObserveRealm()
         }
-        let prioritySort = UIAlertAction(title: "Priority", style: .default) { action in
+        let prioritySort = UIAlertAction(title: "Priority", style: .default) { _ in
             self.filterMode = .priority
             self.setObserveRealm()
         }
-        let dateSort = UIAlertAction(title: "Date", style: .default) { action in
+        let dateSort = UIAlertAction(title: "Date", style: .default) { _ in
             self.filterMode = .date
             self.setObserveRealm()
         }
-        let completeSort = UIAlertAction(title: "Completed", style: .default) { action in
+        let completeSort = UIAlertAction(title: "Completed", style: .default) { _ in
             self.filterMode = .complete
             self.setObserveRealm()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
         
         alertController.addAction(azSort)
         alertController.addAction(prioritySort)
@@ -250,55 +209,49 @@ class AllTasksTableViewController: UITableViewController {
             alertView.transform = CGAffineTransform.identity.scaledBy(x: Constant.alertControllerScale, y: Constant.alertControllerScale).translatedBy(x: 0, y: translatedHeight / 4)
         }
         
-            alertController.setValue(attributedAlert(title: "Sort by:"), forKey: "attributedTitle")
+        alertController.setValue(alertControllerAttributed(title: "Sort by:"), forKey: "attributedTitle")
         
         present(alertController, animated: true, completion: nil)
     }
     
-    func attributedNav(title: String) -> NSMutableAttributedString {
+    private func navBarAttributed(title: String) -> NSMutableAttributedString {
         let attributes: [NSAttributedString.Key: Any] = [.font: UIFont(name: "LaoSangamMN", size: 10)!, .foregroundColor: UIColor.gray]
         let attributedString = NSMutableAttributedString(string: title)
         attributedString.addAttributes(attributes, range: NSRange(location: 6, length: 1))
         return attributedString
     }
     
-    func attributedAlert(title: String) -> NSAttributedString {
-            let font = UIFont(name: "LaoSangamMN", size: 18.0)!
-            let attributes: [NSAttributedString.Key : Any] = [.font: font, .foregroundColor: UIColor.gray]
-            return NSAttributedString(string: title, attributes: attributes)
-     
+    private func alertControllerAttributed(title: String) -> NSAttributedString {
+        let font = UIFont(name: "LaoSangamMN", size: 18.0)!
+        let attributes: [NSAttributedString.Key : Any] = [.font: font, .foregroundColor: UIColor.gray]
+        return NSAttributedString(string: title, attributes: attributes)
+        
     }
     
-    @objc func keyboardWillShow(notification: Notification) {
+    @objc private func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
         let keyboardFrame = keyboardSize.cgRectValue
         newTaskView.frame.origin.y = keyboardFrame.origin.y - newTaskViewHeight
-
+        
     }
     
-    @objc func keyboardWillHide(notification: Notification) {
+    @objc private func keyboardWillHide(notification: Notification) {
         newTaskView.frame.origin.y = self.view.frame.maxY
         newTaskButton.alpha = 1
     }
     
-    @objc func cancelEditing() {
-        if newTaskTextField.isFirstResponder {
-            newTaskTextField.resignFirstResponder()
-        }
-        
+    @objc private func cancelEditing() {
+        newTaskTextField.resignFirstResponder()
     }
+    
     
     // MARK: - Table view data source
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return results.count
-        
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TaskCell
@@ -317,31 +270,26 @@ class AllTasksTableViewController: UITableViewController {
         }()
         let date = task.date 
         cell.dateLabel.text = dateFormatter(date: date)
-        
         cell.outOfDateLabel.isHidden = Date() > date ? false : true
-        
-        cell.remindMeImageView.image = task.shouldRemind ? UIImage(named: "ringBell") : UIImage(named: "noiseBell")
+        cell.remindMeImageView.image = task.shouldRemind ? UIImage(named: "ringBell") : UIImage(named: "muteBell")
         if let image = task.image {
             cell.taskImageView.image = UIImage(data: image)
         }
         
         return cell
     }
-    
-   
-    
-    func dateFormatter(date: Date) -> String {
+
+    private func dateFormatter(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         let formatDate = formatter.string(from: date)
         return formatDate == formatter.string(from: Date()) ? "Today" : formatDate
-        
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard filterMode != FilterMode.complete else { return nil}
-        let completeAction = UIContextualAction(style: .normal, title: "Complete") { (action, sourceView, completionHandler) in
+        let completeAction = UIContextualAction(style: .normal, title: "Complete") { (_, _, completionHandler) in
             RealmData.current.update(self.results[indexPath.row], with: ["isComplete" : true])
             completionHandler(true)
         }
@@ -351,7 +299,7 @@ class AllTasksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completionHandler) in
             RealmData.current.delete(self.results[indexPath.row])
             completionHandler(true)
         }
@@ -359,22 +307,21 @@ class AllTasksTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-     // MARK: - Navigation
-     
-     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "detailControllerSegue":
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailControllerSegue" {
             let destinationVC = segue.destination as! DetailTableViewController
             if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.task = results[indexPath.row]
+                destinationVC.task = results[indexPath.row]
             }
-        default:
-            break
         }
     }
-    
 }
+
+
+//MARK: - Extensions
 
 extension AllTasksTableViewController: UITextFieldDelegate {
     
