@@ -509,7 +509,7 @@
                                 </items>
                             </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.29999999999999999" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="5c2-Qz-HtE">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="539"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="559" translatesAutoresizingMaskIntoConstraints="NO" id="hY1-a8-XkQ">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
@@ -519,18 +519,22 @@
                                     <constraint firstItem="hY1-a8-XkQ" firstAttribute="leading" secondItem="5c2-Qz-HtE" secondAttribute="leading" id="CMs-KR-E3Q"/>
                                     <constraint firstAttribute="trailing" secondItem="hY1-a8-XkQ" secondAttribute="trailing" id="TrR-GT-jAz"/>
                                     <constraint firstAttribute="bottom" secondItem="hY1-a8-XkQ" secondAttribute="bottom" id="VXW-cT-yT7"/>
+                                    <constraint firstAttribute="width" constant="375" id="aqL-a4-rUb"/>
+                                    <constraint firstAttribute="height" constant="539" id="dTU-9S-ZCL"/>
                                     <constraint firstItem="hY1-a8-XkQ" firstAttribute="top" secondItem="5c2-Qz-HtE" secondAttribute="top" id="ycN-Fb-usG"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tdB-Q9-7up" firstAttribute="top" secondItem="5c2-Qz-HtE" secondAttribute="bottom" id="9WC-wt-n5C"/>
+                            <constraint firstItem="tdB-Q9-7up" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5c2-Qz-HtE" secondAttribute="bottom" id="9WC-wt-n5C"/>
                             <constraint firstItem="tdB-Q9-7up" firstAttribute="leading" secondItem="yMF-af-oXm" secondAttribute="leading" id="AOh-XN-INQ"/>
                             <constraint firstItem="tdB-Q9-7up" firstAttribute="bottom" secondItem="yMF-af-oXm" secondAttribute="bottom" id="NIE-V0-JIG"/>
-                            <constraint firstItem="yMF-af-oXm" firstAttribute="trailing" secondItem="5c2-Qz-HtE" secondAttribute="trailing" id="aKX-MY-DtL"/>
-                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="top" secondItem="yMF-af-oXm" secondAttribute="top" id="dnu-iS-Or3"/>
-                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="leading" secondItem="yMF-af-oXm" secondAttribute="leading" id="jKB-mM-4Rb"/>
+                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="centerY" secondItem="0VA-qF-J6x" secondAttribute="centerY" priority="250" id="Thd-Yk-Ce7"/>
+                            <constraint firstItem="yMF-af-oXm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5c2-Qz-HtE" secondAttribute="trailing" id="aKX-MY-DtL"/>
+                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yMF-af-oXm" secondAttribute="top" id="dnu-iS-Or3"/>
+                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="centerX" secondItem="0VA-qF-J6x" secondAttribute="centerX" priority="250" id="flN-IP-lVV"/>
+                            <constraint firstItem="5c2-Qz-HtE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yMF-af-oXm" secondAttribute="leading" id="jKB-mM-4Rb"/>
                             <constraint firstItem="tdB-Q9-7up" firstAttribute="trailing" secondItem="yMF-af-oXm" secondAttribute="trailing" id="vAx-Z9-dCy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yMF-af-oXm"/>
@@ -538,6 +542,8 @@
                     <connections>
                         <outlet property="imageView" destination="hY1-a8-XkQ" id="CgJ-ah-0Sf"/>
                         <outlet property="scrollView" destination="5c2-Qz-HtE" id="ahD-kj-zGE"/>
+                        <outlet property="scroolViewHeight" destination="dTU-9S-ZCL" id="xv7-sJ-xLm"/>
+                        <outlet property="scroolViewWidth" destination="aqL-a4-rUb" id="AVN-1R-jA9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SHP-k2-p73" userLabel="First Responder" sceneMemberID="firstResponder"/>

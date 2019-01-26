@@ -18,6 +18,8 @@ class ImageViewController: UIViewController {
             scrollView.delegate = self
         }
     }
+    @IBOutlet weak var scroolViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var scroolViewHeight: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView! {
         didSet{
             imageView.image = image
@@ -26,6 +28,14 @@ class ImageViewController: UIViewController {
             leftEdgeSwipe.edges = [.left]
             imageView.addGestureRecognizer(leftEdgeSwipe)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        scrollView.zoomScale = max(self.view.bounds.size.width / image.size.width, self.view.bounds.size.height / image.size.height)
+        scroolViewWidth.constant = image.size.width
+        scroolViewHeight.constant = image.size.height
     }
     
     @objc func leftEdgeSwipe(sender: UIScreenEdgePanGestureRecognizer) {
@@ -52,5 +62,10 @@ extension ImageViewController: UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        scroolViewWidth.constant = scrollView.contentSize.width
+        scroolViewHeight.constant = scrollView.contentSize.height
     }
 }
